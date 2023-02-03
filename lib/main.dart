@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobx_examples/Shopping/cart_view.dart';
@@ -53,4 +54,55 @@ GoRouter routes() {
       ],
     ),
   ]);
+}
+*/
+
+import 'package:flutter/material.dart';
+import 'package:mobx_examples/Todo/viewmodel/todo_view_model.dart';
+import 'package:mobx_examples/examples.dart';
+import 'package:provider/provider.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => MultiProvider(
+        providers: [
+          Provider<TodoList>(create: (_) => TodoList()),
+        ],
+        child: MaterialApp(
+          initialRoute: '/todos',
+          routes: {
+            '/': (_) => const ExampleList(),
+          }..addEntries(
+              examples.map((ex) => MapEntry(ex.path, ex.widgetBuilder))),
+        ),
+      );
+}
+
+class ExampleList extends StatelessWidget {
+  const ExampleList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+      appBar: AppBar(
+        title: const Text('Flutter MobX Examples'),
+      ),
+      body: ListView.builder(
+        itemCount: examples.length,
+        itemBuilder: (_, int index) {
+          final ex = examples[index];
+
+          return ListTile(
+            title: Text(ex.title),
+            subtitle: Text(ex.description),
+            trailing: const Icon(Icons.navigate_next),
+            onTap: () => Navigator.pushNamed(context, ex.path),
+          );
+        },
+      ));
 }
