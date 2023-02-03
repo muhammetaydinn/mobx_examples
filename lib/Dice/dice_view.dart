@@ -19,10 +19,19 @@ class DiceView extends StatelessWidget {
                   child: Observer(builder: (_) {
                     return Column(
                       children: [
-                        TextButton(
-                          onPressed: diceCounter.roll,
-                          child: Image.asset(
-                              'assets/images/${diceCounter.left}.png'),
+                        GestureDetector(
+                          onTap: () {
+                            diceCounter.roll();
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ColorFiltered(
+                              colorFilter: const ColorFilter.mode(
+                                  Colors.black, BlendMode.modulate),
+                              child: Image.asset(
+                                  'assets/images/dice${diceCounter.left}.png'),
+                            ),
+                          ),
                         ),
                         Text(diceCounter.left.toString()),
                       ],
@@ -33,10 +42,19 @@ class DiceView extends StatelessWidget {
                   child: Observer(builder: (_) {
                     return Column(
                       children: [
-                        TextButton(
-                          onPressed: diceCounter.roll,
-                          child: Image.asset(
-                              'assets/images/${diceCounter.right}.png'),
+                        GestureDetector(
+                          onTap: () {
+                            diceCounter.roll();
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ColorFiltered(
+                              colorFilter: const ColorFilter.mode(
+                                  Colors.black, BlendMode.modulate),
+                              child: Image.asset(
+                                  'assets/images/dice${diceCounter.right}.png'),
+                            ),
+                          ),
                         ),
                         Text(diceCounter.right.toString()),
                       ],
